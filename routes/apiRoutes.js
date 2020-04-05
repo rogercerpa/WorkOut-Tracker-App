@@ -11,4 +11,17 @@ module.exports = function(app) {
 			res.json(dbWorkouts);
 		});
 	});
+
+	app.post('/api/workouts', (req, res) => {
+		db.create({}).then((dbWorkouts) => {
+			res.json(dbWorkouts);
+		});
+	});
+	app.put('/api/workouts/:id', (req, res) => {
+		db
+			.update({ _id: req.params.id }, { $push: { exercises: req.body } })
+			.then((data) => {
+				res.json(data);
+			});
+	});
 };
